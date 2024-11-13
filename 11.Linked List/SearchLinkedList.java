@@ -1,41 +1,47 @@
-import java.util.LinkedList;
+public class SearchLinkedList {
 
-public class SearchLinkedList{
-
-    public static int search(LinkedList<Integer> list, int key){
-        for(int i = 0; i < list.size(); i++){
-            if(list.get(i) == key){
-                System.out.println("Element found at index: " + i);
-                return i;
+    public static int search(LinkedList.Node head, int key) {
+        LinkedList.Node current = head;
+        int index = 0;
+        while (current != null) {
+            if (current.data == key) {
+                System.out.println("Element found at index: " + index);
+                return index;
             }
+            index++;
+            current = current.next;
         }
-        System.out.println("Element not found");
+        System.out.println("Element not found in the list");
         return -1;
     }
 
-    public static int recSearch(LinkedList<Integer> list, int key, int index){
-
-        if(list.get(0) == key){
-            return index;
-        }
-        if(list.size() == 1){
+    public static int recSearch(LinkedList.Node head, int key) {
+        if (head == null) {
             return -1;
         }
+        if (head.data == key) {
+            return 0;
+        }
+        int res = recSearch(head.next, key);
+        if (res == -1) {
+            return -1;
+        } else {
+            return res + 1;
+        }
 
-        return recSearch(new LinkedList<>(list.subList(1, list.size())), key, index + 1);
     }
 
-
     public static void main(String[] args) {
-        LinkedList<Integer> list = new LinkedList<>();
-        list.add(97); 
-        list.add(98); 
-        list.add(113); 
-        list.add(72);
-        list.add(1);
 
-        search(list, 1);
-        System.out.println("Recursive search result: " + recSearch(list, 1, 0));
+        // Create an instance of the LinkedList
+        LinkedList list = new LinkedList();
+
+        list.addFirst(10);
+        list.addLast(20);
+        list.addLast(30);
+
+        search(list.head, 10); // Output: Element found at index: 0
+        System.out.println(recSearch(null, 0)); // Output: -1
 
     }
 }
