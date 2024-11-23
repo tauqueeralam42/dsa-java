@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import org.w3c.dom.Node;
-
 public class LowestCommonAncestor {
     public static class Node {
         int data;
